@@ -11,8 +11,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "Ped_prod")
 public class ItemPed {
+	@Column(name = "qtd_ped")
 	private int qtd;
+	
+	@ManyToMany
+	@JoinColumn(name = "cod_bar")
 	private Produto produto;
+	
+	@ManyToMany
+	@JoinColumn(name = "num_pedido")
 	private Pedido pedido;
 
 	public int getQtd() {

@@ -20,9 +20,11 @@ public class Pedido implements Listavel {
 	@JoinColumn(name = "cod_clie")
 	private Cliente cliente;
 	
+	@ManyToOne
 	@JoinColumn(name = "cod_pag")
 	private FormPag formPag;
 	
+	@ManyToOne
 	@JoinColumn(name = "cpf_func")
 	private Atendente atendente;
 	
@@ -31,7 +33,6 @@ public class Pedido implements Listavel {
 	
 	private boolean atendido = false;
 	
-	@Column(name = "num_pedido")
 	private List<ItemPed> itens = new ArrayList<ItemPed>();
 
 	public String getNumero() {
@@ -108,7 +109,7 @@ public class Pedido implements Listavel {
 
 	public void listar() {
 		System.out.println("Número: " + this.getNumero());
-		System.out.println("Forma de pagamento: " + this.getFormPag().getNome());
+		System.out.println("Forma de pagamento: " + this.getFormPag().getForma().toString());
 		this.getCliente().listar();
 		this.getItens().forEach(itemPed -> itemPed.listar());
 		System.out.println("Foi atendido: " + (this.isAtendido() ? "sim" : "não"));

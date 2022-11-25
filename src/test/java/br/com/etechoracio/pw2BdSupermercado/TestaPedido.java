@@ -14,7 +14,7 @@ public class TestaPedido {
 
 		Cliente cliente = TestaCliente.criaCliente();
 
-		FormPag formpag = new FormPag("Crédito", FormPagEnum.CREDITO);
+		FormPag formpag = new FormPag(1, FormPagEnum.CREDITO);
 
 		Nf nf = new Nf();
 		nf.cadastrar("7899586528937", "2535");
