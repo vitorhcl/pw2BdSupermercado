@@ -13,25 +13,26 @@ import lombok.Setter;
 @Table(name = "Pedido")
 public class Pedido implements IListavel {
 	@Id
-	@Column(name = "num_pedido")
+	@Column(name = "num_pedido", columnDefinition = "numeric(6)")
 	private String numero;
 	
 	@ManyToOne
-	@JoinColumn(name = "cod_clie")
+	@JoinColumn(name = "cod_clie", columnDefinition = "char(5)")
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "cod_pag")
+	@JoinColumn(name = "cod_pag", columnDefinition = "char(1)")
 	private FormPag formPag;
 	
 	@ManyToOne
-	@JoinColumn(name = "cpf_func")
+	@JoinColumn(name = "cpf_func", columnDefinition = "char(11)")
 	private Atendente atendente;
 
 	@OneToOne
 	@JoinColumn(name = "num_nf", columnDefinition = "numeric(4)")
 	private Nf nf;
 	
+	@Transient
 	private boolean atendido = false;
 	
 	@OneToMany(mappedBy = "itemPedPk.pedido",
