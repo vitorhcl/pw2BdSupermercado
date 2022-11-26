@@ -23,9 +23,8 @@ public class Nf implements Listavel {
 	
 	@Column(name = "qtd_total")
 	private int qtdTotal;
-	
-	@OneToOne
-	@JoinColumn(name = "cod_bar")
+
+	@Column(name = "cod_bar")
 	private String codBar;
 	
 	@OneToOne
