@@ -21,7 +21,7 @@ public class Pedido implements IListavel {
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "cod_pag", columnDefinition = "char(1)")
+	@JoinColumn(name = "cod_pag", columnDefinition = "numeric(1)")
 	private FormPag formPag;
 	
 	@ManyToOne
