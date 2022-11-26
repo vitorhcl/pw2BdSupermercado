@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Atendente")
-public class Atendente implements Listavel {
+public class Atendente implements IListavel {
 	@Id
 	@Column(name = "cpf_func")
 	private String cpf;

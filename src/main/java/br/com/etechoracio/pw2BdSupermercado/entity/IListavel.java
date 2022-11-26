@@ -1,5 +1,5 @@
 package br.com.etechoracio.pw2BdSupermercado.entity;
 
-public interface Listavel {
+public interface IListavel {
 	public void listar();
 }

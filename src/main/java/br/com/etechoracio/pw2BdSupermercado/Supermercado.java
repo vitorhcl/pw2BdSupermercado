@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.etechoracio.pw2BdSupermercado.entity.*;
-import br.com.etechoracio.pw2BdSupermercado.entity.Listavel;
+import br.com.etechoracio.pw2BdSupermercado.entity.IListavel;
 
 public class Supermercado {
 	private static List<Atendente> atendentes = new ArrayList<Atendente>();
@@ -74,7 +74,7 @@ public class Supermercado {
 		}
 		for (Object item : lista) {
 			System.out.printf("(%d): ", i + 1);
-			((Listavel) item).listar();
+			((IListavel) item).listar();
 			System.out.println();
 			i++;
 		}

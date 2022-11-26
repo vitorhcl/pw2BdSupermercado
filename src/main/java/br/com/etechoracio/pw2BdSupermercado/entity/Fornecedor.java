@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Fornecedor")
-public class Fornecedor implements Listavel {
+public class Fornecedor implements IListavel {
 	@Id
 	@Column(name = "cnpj_forn")
 	private String cnpj;

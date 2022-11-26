@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "nf")
-public class Nf implements Listavel {
+public class Nf implements IListavel {
 	@Id
 	@Column(name = "num_nf")
 	public String num;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.enums.FormPagEnum;
 
-public class FormPag implements Listavel {
+public class FormPag implements IListavel {
 	@Id
 	@Column(name = "nome_pag")
 	private int codigo;

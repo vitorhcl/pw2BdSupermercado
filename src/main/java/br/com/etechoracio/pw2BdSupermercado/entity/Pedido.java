@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Pedido")
-public class Pedido implements Listavel {
+public class Pedido implements IListavel {
 	@Id
 	@Column(name = "num_pedido")
 	private String numero;
