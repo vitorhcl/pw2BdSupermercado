@@ -322,7 +322,7 @@ public class Principal {
 	}
 
 	private static void menuCadastroForn() {
-		Fornecedor forn = new Fornecedor();
+		Fornecedor forn;
 		String nome, cnpj;
 
 		System.out.print("Nome: ");
@@ -330,7 +330,7 @@ public class Principal {
 
 		System.out.print("CNPJ (só digitos): ");
 		cnpj = ent.next();
-		forn.cadastrar(nome, cnpj);
+		forn = Fornecedor.builder().nome(nome).cnpj(cnpj).build();
 		Supermercado.getFornecedores().add(forn);
 	}
 

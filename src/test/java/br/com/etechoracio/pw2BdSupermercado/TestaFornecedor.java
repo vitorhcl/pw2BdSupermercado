@@ -1,11 +1,11 @@
 package br.com.etechoracio.pw2BdSupermercado;
 
+import br.com.etechoracio.pw2BdSupermercado.Supermercado;
 import br.com.etechoracio.pw2BdSupermercado.entity.*;
 
 public class TestaFornecedor {
 	public static Fornecedor criaFornecedor() {
-		Fornecedor forn = new Fornecedor();
-		forn.cadastrar("Camil", "64904295000103");
+		Fornecedor forn = Fornecedor.builder().nome("Camil").cnpj("64904295000103").build();
 		Supermercado.getFornecedores().add(forn);
 		return forn;
 	}
