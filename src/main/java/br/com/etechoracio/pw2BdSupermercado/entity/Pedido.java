@@ -109,7 +109,7 @@ public class Pedido implements IListavel {
 
 	public void listar() {
 		System.out.println("Número: " + this.getNumero());
-		System.out.println("Forma de pagamento: " + this.getFormPag().getForma().toString());
+		System.out.println("Forma de pagamento: " + this.getFormPag().getCodigo().toString());
 		this.getCliente().listar();
 		this.getItens().forEach(itemPed -> itemPed.listar());
 		System.out.println("Foi atendido: " + (this.isAtendido() ? "sim" : "não"));

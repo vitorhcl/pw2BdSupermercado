@@ -40,10 +40,10 @@ public class Principal {
 	}
 
 	private static void preencherSupermercado() {
-		Supermercado.getFormasPag().add(new FormPag(1, FormPagEnum.CREDITO));
-		Supermercado.getFormasPag().add(new FormPag(2, FormPagEnum.DEBITO));
-		Supermercado.getFormasPag().add(new FormPag(3, FormPagEnum.PIX));
-		Supermercado.getFormasPag().add(new FormPag(4, FormPagEnum.VALEREFEICAO));
+		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.CREDITO).nome("Crédito").build());
+		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.DEBITO).nome("Débito").build());
+		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.PIX).nome("PIX").build());
+		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.VALEREFEICAO).nome("Vale-Refeição").build());
 
 		TestaPedido.criaPedido();
 		TestaAtendente.criaAtendente();

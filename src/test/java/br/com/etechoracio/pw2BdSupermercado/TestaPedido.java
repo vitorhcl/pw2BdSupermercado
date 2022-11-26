@@ -14,7 +14,7 @@ public class TestaPedido {
 
 		Cliente cliente = TestaCliente.criaCliente();
 
-		FormPag formpag = new FormPag(1, FormPagEnum.CREDITO);
+		FormPag formpag = FormPag.builder().codigo(FormPagEnum.CREDITO).nome("Crédito").build();
 
 		Nf nf = Nf.builder().codBar("7899586528937").num("2535").build();
 
