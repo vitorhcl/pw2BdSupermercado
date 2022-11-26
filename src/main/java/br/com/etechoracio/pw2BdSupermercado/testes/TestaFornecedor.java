@@ -14,5 +14,4 @@ public class TestaFornecedor {
 		Fornecedor forn = criaFornecedor();
 		forn.listar();
 	}
-
 }
