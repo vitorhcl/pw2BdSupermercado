@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "nf")
 public class Nf implements IListavel {
 	@Id
-	@Column(name = "num_nf")
+	@Column(name = "num_nf", columnDefinition = "numeric(4)")
 	public String num;
 	
 	@Column(name = "total_nf")
