@@ -139,7 +139,7 @@ public class Pedido implements IListavel {
 	private void adicionarItem(ItemPed item) {
 		item.getProduto().remover(item.getQtd());
 		
-		Produto prodExis = new Produto();
+		Produto prodExis;
 		for (ItemPed itemExis : this.itens) {
 			prodExis = itemExis.getProduto();
 			if (item.getProduto().getCodBar() == prodExis.getCodBar()) {

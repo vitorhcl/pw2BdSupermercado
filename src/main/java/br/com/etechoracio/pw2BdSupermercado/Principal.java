@@ -269,7 +269,7 @@ public class Principal {
 		if(forn == null)
 			return;
 		
-		Produto prod = new Produto();
+		Produto prod;
 
 		String nome, codBar, categoria;
 		int quantidade;
@@ -286,15 +286,14 @@ public class Principal {
 
 		System.out.print("Preço de custo: ");
 		precoCusto = ent.nextDouble();
-
-		forn.comprar(prod, quantidade);
 		
 		System.out.print("Preço de venda: ");
 		precoVenda = ent.nextDouble();
 
 		System.out.print("Categoria: ");
 		categoria = ent.next();
-		prod.cadastrar(nome, codBar, categoria, precoCusto, precoVenda);
+		
+		prod = Produto.builder().nome(nome).codBar(codBar).estoque(quantidade).precoCusto(precoCusto).precoVenda(precoVenda).categoria(categoria).build();
 		forn.comprar(prod, quantidade);
 		
 		Supermercado.getProdutos().add(prod);

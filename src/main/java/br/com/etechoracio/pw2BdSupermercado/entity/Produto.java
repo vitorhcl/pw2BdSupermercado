@@ -5,11 +5,11 @@ import java.util.List;
 import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.Formatador;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "Produto")
 public class Produto implements IListavel {
@@ -26,55 +26,25 @@ public class Produto implements IListavel {
 	@Column(name = "preco_custo")
 	private double precoCusto;
 	
+	@Builder.Default
 	@Column(name = "estoque")
 	private int estoque = 0;
 	
 	@Column(name = "categoria")
 	private String categoria;
 	
+	@Builder.Default
 	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 	
+	@Builder.Default
 	@OneToMany(mappedBy = "itemPedPk.produto",
 			   cascade = CascadeType.ALL)
 	private List<ItemPed> itens = new ArrayList<ItemPed>();
-
-
-	public String getCodBar() {
-		return codBar;
-	}
 
 	public void setCodBar(String codBar) {
 		if (codBar.length() != 13)
 			throw new IllegalArgumentException();
 		this.codBar = codBar;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public double getPrecoVenda() {
-		return precoVenda;
-	}
-
-	public void setPrecoVenda(double precoVenda) {
-		this.precoVenda = precoVenda;
-	}
-
-	public double getPrecoCusto() {
-		return precoCusto;
-	}
-
-	public void setPrecoCusto(double precoCusto) {
-		this.precoCusto = precoCusto;
-	}
-
-	public int getEstoque() {
-		return estoque;
 	}
 
 	public void adicionar(int quantidade) {
@@ -83,22 +53,6 @@ public class Produto implements IListavel {
 
 	public void remover(int quantidade) {
 		this.estoque -= quantidade;
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
-	}
-
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
 	}
 
 	public void listar() {
@@ -114,13 +68,5 @@ public class Produto implements IListavel {
 		System.out.print("Fornecedores: ");
 		this.fornecedores.forEach(forn -> System.out.print(forn.getNome() + "; "));
 		System.out.println();
-	}
-
-	public void cadastrar(String nome, String codBar, String categoria, double precoCusto, double precoVenda) {
-		this.nome = nome;
-		this.codBar = codBar;
-		this.categoria = categoria;
-		this.precoVenda = precoVenda;
-		this.categoria = categoria;
 	}
 }
