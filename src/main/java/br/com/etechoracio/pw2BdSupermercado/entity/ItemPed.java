@@ -12,15 +12,15 @@ import lombok.Setter;
 @Table(name = "Ped_prod")
 @AssociationOverrides({
 	@AssociationOverride(name = "itemPedPk.produto",
-		joinColumns = @JoinColumn(name = "cod_bar")),
+		joinColumns = @JoinColumn(name = "cod_bar", columnDefinition = "char(13)")),
 	@AssociationOverride(name = "itemPedPk.pedido",
-		joinColumns = @JoinColumn(name = "num_pedido")),
+		joinColumns = @JoinColumn(name = "num_pedido", columnDefinition = "numeric(4)")),
 })
 public class ItemPed {
 	@EmbeddedId
 	private ItemPedPk itemPedPk;
 
-	@Column(name = "qtd_ped")
+	@Column(name = "qtd_ped", columnDefinition = "numeric(3)")
 	private int qtd;
 	
 	@Transient
