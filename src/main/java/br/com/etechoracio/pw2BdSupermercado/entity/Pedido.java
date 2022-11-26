@@ -27,7 +27,8 @@ public class Pedido implements IListavel {
 	@ManyToOne
 	@JoinColumn(name = "cpf_func")
 	private Atendente atendente;
-	
+
+	@OneToOne
 	@JoinColumn(name = "num_nf")
 	private Nf nf;
 	
