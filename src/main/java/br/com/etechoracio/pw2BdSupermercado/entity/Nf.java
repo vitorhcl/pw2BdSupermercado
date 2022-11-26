@@ -19,7 +19,7 @@ public class Nf implements IListavel {
 	public String num;
 	
 	@Column(name = "total_nf")
-	public int total;
+	public double total;
 	
 	@Column(name = "qtd_total")
 	private int qtdTotal;

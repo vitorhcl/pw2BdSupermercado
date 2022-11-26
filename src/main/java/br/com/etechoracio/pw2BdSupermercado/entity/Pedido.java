@@ -100,7 +100,8 @@ public class Pedido implements IListavel {
 		this.formPag = formPag;
 
 		nf.setPedido(this);
-		int qtdTotal = 0, vlrTotal = 0;
+		int qtdTotal = 0;
+		double vlrTotal = 0;
 		for (ItemPed item : this.itens) {
 			qtdTotal += item.getQtd();
 			vlrTotal += item.getProduto().getPrecoVenda() * item.getQtd();

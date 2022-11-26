@@ -204,13 +204,15 @@ public class Principal {
 
 	private static Nf menuEmitirNf() {
 		Nf nf;
-		String num, codBar, strDataEmi;
+		int numero;
+		String codBar, strDataEmi;
 		LocalDateTime dataEmi;
 		
 		ent.nextLine();
 
-		System.out.println("Número (4 dígitos): ");
-		num = ent.nextLine();
+		System.out.println("Número (até 4 dígitos): ");
+		numero = ent.nextInt();
+		ent.nextLine();
 
 		System.out.println("Código de barras EAN-13 (13 dígitos): ");
 		codBar = ent.nextLine();
@@ -219,10 +221,10 @@ public class Principal {
 		strDataEmi = ent.nextLine();
 		
 		if (strDataEmi.equals("h")) {
-			nf = Nf.builder().codBar(codBar).num(num).build();
+			nf = Nf.builder().codBar(codBar).numero(numero).build();
 		} else {
 			dataEmi = new Formatador().data(strDataEmi);
-			nf = Nf.builder().codBar(codBar).num(num).dataEmi(dataEmi).build();
+			nf = Nf.builder().codBar(codBar).numero(numero).dataEmi(dataEmi).build();
 		}
 
 		Supermercado.getNfs().add(nf);
