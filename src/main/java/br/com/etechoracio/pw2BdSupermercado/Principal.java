@@ -1,5 +1,6 @@
 package br.com.etechoracio.pw2BdSupermercado;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -205,16 +206,19 @@ public class Principal {
 	private static Nf menuEmitirNf() {
 		Nf nf;
 		String num, codBar, strDataEmi;
-		LocalDate dataEmi;
+		LocalDateTime dataEmi;
+		
+		ent.nextLine();
 
 		System.out.println("Número (4 dígitos): ");
-		num = ent.next();
+		num = ent.nextLine();
 
 		System.out.println("Código de barras EAN-13 (13 dígitos): ");
-		codBar = ent.next();
+		codBar = ent.nextLine();
 
-		System.out.println("Data de emissão, h para hoje (dd/MM/yyyy): ");
-		strDataEmi = ent.next();
+		System.out.println("Data de emissão, a para agora (dd/MM/yyyy HH:mm:ss): ");
+		strDataEmi = ent.nextLine();
+		
 		if (strDataEmi.equals("h")) {
 			nf = Nf.builder().codBar(codBar).num(num).build();
 		} else {

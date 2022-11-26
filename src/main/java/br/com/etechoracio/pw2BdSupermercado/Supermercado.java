@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.etechoracio.pw2BdSupermercado.entity.*;
+import br.com.etechoracio.pw2BdSupermercado.entity.Listavel;
 
 public class Supermercado {
 	private static List<Atendente> atendentes = new ArrayList<Atendente>();

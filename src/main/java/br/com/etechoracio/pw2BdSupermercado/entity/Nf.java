@@ -1,5 +1,5 @@
 package br.com.etechoracio.pw2BdSupermercado.entity;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -34,7 +34,7 @@ public class Nf implements Listavel {
 	
 	@Builder.Default
 	@Column(name = "data_emi")
-	private LocalDate dataEmi = LocalDate.now();
+	private LocalDateTime dataEmi = LocalDateTime.now();
 
 	public void setNum(String num) {
 		if (num.length() != 4)
