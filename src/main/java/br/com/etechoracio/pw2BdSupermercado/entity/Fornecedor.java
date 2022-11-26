@@ -14,7 +14,7 @@ import lombok.*;
 @Table(name = "Fornecedor")
 public class Fornecedor implements IListavel {
 	@Id
-	@Column(name = "cnpj_forn")
+	@Column(name = "cnpj_forn", columnDefinition = "char(14)")
 	private String cnpj;
 	
 	@Column(name = "nome_forn")
@@ -23,8 +23,8 @@ public class Fornecedor implements IListavel {
 	@Builder.Default
 	@ManyToMany
 	@JoinTable(name = "Forn_prod",
-			   joinColumns = @JoinColumn(name = "cnpj_forn"),
-			   inverseJoinColumns = @JoinColumn(name = "cod_bar"))
+			   joinColumns = @JoinColumn(name = "cnpj_forn", columnDefinition = "char(14)"),
+			   inverseJoinColumns = @JoinColumn(name = "cod_bar", columnDefinition = "char(13"))
 	private List<Produto> produtos = new ArrayList<Produto>();
 
 	public void setCnpj(String cnpj) {

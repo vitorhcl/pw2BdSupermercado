@@ -36,8 +36,8 @@ public class Produto implements IListavel {
 	@Builder.Default
 	@ManyToMany
 	@JoinTable(name = "Forn_prod",
-			  joinColumns = @JoinColumn(name = "cod_bar"),
-			  inverseJoinColumns = @JoinColumn(name = "cnpj_forn"))
+			  joinColumns = @JoinColumn(name = "cod_bar", columnDefinition = "char(13)"),
+			  inverseJoinColumns = @JoinColumn(name = "cnpj_forn", columnDefinition = "char(14)"))
 	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
 	
 	@Builder.Default
