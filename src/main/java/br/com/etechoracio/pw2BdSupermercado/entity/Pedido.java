@@ -34,6 +34,8 @@ public class Pedido implements IListavel {
 	
 	private boolean atendido = false;
 	
+	@OneToMany(mappedBy = "itemPedPk.pedido",
+			   cascade = CascadeType.ALL)
 	private List<ItemPed> itens = new ArrayList<ItemPed>();
 
 	public String getNumero() {

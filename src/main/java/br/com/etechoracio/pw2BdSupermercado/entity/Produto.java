@@ -33,6 +33,11 @@ public class Produto implements IListavel {
 	private String categoria;
 	
 	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+	
+	@OneToMany(mappedBy = "itemPedPk.produto",
+			   cascade = CascadeType.ALL)
+	private List<ItemPed> itens = new ArrayList<ItemPed>();
+
 
 	public String getCodBar() {
 		return codBar;

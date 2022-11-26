@@ -10,16 +10,23 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Ped_prod")
+@AssociationOverrides({
+	@AssociationOverride(name = "itemPedPk.produto",
+		joinColumns = @JoinColumn(name = "cod_bar")),
+	@AssociationOverride(name = "itemPedPk.pedido",
+		joinColumns = @JoinColumn(name = "num_pedido")),
+})
 public class ItemPed {
+	@EmbeddedId
+	private ItemPedPk itemPedPk;
+
 	@Column(name = "qtd_ped")
 	private int qtd;
 	
-	@ManyToMany
-	@JoinColumn(name = "cod_bar")
+	@Transient
 	private Produto produto;
 	
-	@ManyToMany
-	@JoinColumn(name = "num_pedido")
+	@Transient
 	private Pedido pedido;
 
 	public int getQtd() {
