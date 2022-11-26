@@ -17,8 +17,7 @@ public class TestaPedido {
 
 		FormPag formpag = new FormPag(1, FormPagEnum.CREDITO);
 
-		Nf nf = new Nf();
-		nf.cadastrar("7899586528937", "2535");
+		Nf nf = Nf.builder().codBar("7899586528937").num("2535").build();
 
 		Pedido pedido = new Pedido();
 		pedido.adicionarItens(item1, item2);

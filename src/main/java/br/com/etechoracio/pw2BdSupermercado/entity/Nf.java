@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.Formatador;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "nf")
 public class Nf implements Listavel {
@@ -30,12 +32,9 @@ public class Nf implements Listavel {
 	@JoinColumn(name = "num_pedido")
 	private Pedido pedido;
 	
+	@Builder.Default
 	@Column(name = "data_emi")
-	private LocalDate dataEmi;
-
-	public String getNum() {
-		return num;
-	}
+	private LocalDate dataEmi = LocalDate.now();
 
 	public void setNum(String num) {
 		if (num.length() != 4)
@@ -43,61 +42,10 @@ public class Nf implements Listavel {
 		this.num = num;
 	}
 
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public int getQtdTotal() {
-		return qtdTotal;
-	}
-
-	public void setQtdTotal(int qtdTotal) {
-		this.qtdTotal = qtdTotal;
-	}
-
-	public String getCodBar() {
-		return codBar;
-	}
-
 	public void setCodBar(String codBar) {
 		if (codBar.length() != 13)
 			throw new IllegalArgumentException();
 		this.codBar = codBar;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido numPedido) {
-		this.pedido = numPedido;
-	}
-
-	public LocalDate getDataEmi() {
-		return dataEmi;
-	}
-
-	public void setDataEmi(LocalDate dt) {
-		this.dataEmi = dt;
-	}
-
-	public void cadastrar(String codBar, String num) {
-		this.codBar = codBar;
-
-		LocalDate dt = LocalDate.now();
-		this.dataEmi = dt;
-
-		this.num = num;
-	}
-
-	public void cadastrar(String codBar, String num, LocalDate dataEmi) {
-		this.setCodBar(codBar);
-		this.dataEmi = dataEmi;
-		this.setNum(num);
 	}
 
 	public void listar() {

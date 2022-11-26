@@ -203,7 +203,7 @@ public class Principal {
 	}
 
 	private static Nf menuEmitirNf() {
-		Nf nf = new Nf();
+		Nf nf;
 		String num, codBar, strDataEmi;
 		LocalDate dataEmi;
 
@@ -216,10 +216,10 @@ public class Principal {
 		System.out.println("Data de emissão, h para hoje (dd/MM/yyyy): ");
 		strDataEmi = ent.next();
 		if (strDataEmi.equals("h")) {
-			nf.cadastrar(codBar, num);
+			nf = Nf.builder().codBar(codBar).num(num).build();
 		} else {
 			dataEmi = new Formatador().data(strDataEmi);
-			nf.cadastrar(codBar, num, dataEmi);
+			nf = Nf.builder().codBar(codBar).num(num).dataEmi(dataEmi).build();
 		}
 
 		Supermercado.getNfs().add(nf);
