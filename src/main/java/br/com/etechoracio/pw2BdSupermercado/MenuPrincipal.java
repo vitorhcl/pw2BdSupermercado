@@ -7,10 +7,10 @@ import br.com.etechoracio.pw2BdSupermercado.entity.*;
 import br.com.etechoracio.pw2BdSupermercado.enums.*;
 import br.com.etechoracio.pw2BdSupermercado.testes.*;
 
-public class Principal {
-	private static Scanner ent = new Scanner(System.in);
+public class MenuPrincipal {
+	private Scanner ent = new Scanner(System.in);
 
-	public static int menu(boolean menuPrincipal, String titulo, String... msgs) {
+	private int menu(boolean menuPrincipal, String titulo, String... msgs) {
 		int escolha = 0;
 		try {
 			System.out.println(titulo);
@@ -32,13 +32,13 @@ public class Principal {
 		return escolha;
 	}
 
-	public static void main(String[] args) {
+	public void main() {
 		preencherSupermercado();
 
 		menuPrincipal();
 	}
 
-	private static void preencherSupermercado() {
+	private void preencherSupermercado() {
 		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.CREDITO).nome("Crédito").build());
 		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.DEBITO).nome("Débito").build());
 		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.PIX).nome("PIX").build());
@@ -48,7 +48,7 @@ public class Principal {
 		TestaAtendente.criaAtendente();
 	}
 
-	private static void menuPrincipal() {
+	private void menuPrincipal() {
 		int escolha;
 		escolha = menu(true, "O que deseja fazer?", "Cadastrar", "Atender pedido", "Listar");
 		switch (escolha) {
@@ -70,7 +70,7 @@ public class Principal {
 		ent.close();
 	}
 
-	private static void menuCadastro() {
+	private void menuCadastro() {
 		int escolha;
 		escolha = menu(false, "O que deseja cadastrar?", "Pedido", "Cliente", "Fornecedor", "Fornecimento", "Produto", "Atendente");
 		try {
@@ -107,7 +107,7 @@ public class Principal {
 			menuCadastro();
 	}
 
-	private static void menuListar() {
+	private void menuListar() {
 		int escolha;
 		escolha = menu(false, "O que deseja listar?", "Produtos", "Atendentes", "Fornecedores", "Pedidos", "Clientes",
 				"Formas de pagamento", "Notas fiscais");
@@ -138,7 +138,7 @@ public class Principal {
 			menuListar();
 	}
 
-	private static <T> int lerIndiceLista(Class<T> T, String msgErro) {
+	private <T> int lerIndiceLista(Class<T> T, String msgErro) {
 		boolean existe = Supermercado.listar(T);
 		if (!existe)
 			return -1;
@@ -150,7 +150,7 @@ public class Principal {
 		return num;
 	}
 
-	private static <T> T escolher(Class<T> T, String msgErro) {
+	private <T> T escolher(Class<T> T, String msgErro) {
 		int num = lerIndiceLista(T, msgErro);
 		if (num == -1 || num == 0)
 			return null;
@@ -159,7 +159,7 @@ public class Principal {
 		return (T) objeto;
 	}
 
-	private static void menuAtenderPedido() {
+	private void menuAtenderPedido() {
 		System.out.println("Escolha o atendente:");
 		Atendente atendente = escolher(Atendente.class, "Atendente inválido!");
 		if (atendente == null)
@@ -173,7 +173,7 @@ public class Principal {
 		atendente.atenderPedido(pedido);
 	}
 
-	private static void menuCadastroPedido() {
+	private void menuCadastroPedido() {
 		System.out.println("Escolha o cliente:");
 		Cliente clie = escolher(Cliente.class, "Cliente inválido");
 
@@ -202,7 +202,7 @@ public class Principal {
 		Supermercado.getPedidos().add(ped);
 	}
 
-	private static Nf menuEmitirNf() {
+	private Nf menuEmitirNf() {
 		Nf nf;
 		int numero;
 		String codBar, strDataEmi;
@@ -231,7 +231,7 @@ public class Principal {
 		return nf;
 	}
 
-	private static boolean menuAdicionarItens(Pedido ped) {
+	private boolean menuAdicionarItens(Pedido ped) {
 		System.out.println("Adicione um produto ao pedido ou digite 0 para finalizar a compra:");
 		int num = lerIndiceLista(Produto.class, "Produto inválido!");
 
@@ -247,7 +247,7 @@ public class Principal {
 		return true;
 	}
 
-	private static void menuCadastroAtendente() {
+	private void menuCadastroAtendente() {
 		Atendente atendente = new Atendente();
 		String cpf, nome;
 		double slr;
@@ -264,7 +264,7 @@ public class Principal {
 		Supermercado.getAtendentes().add(atendente);
 	}
 
-	private static void menuCadastroProd() {
+	private void menuCadastroProd() {
 		System.out.println("Escolha um fornecedor:");
 
 		Fornecedor forn = escolher(Fornecedor.class, "Fornecedor inválido!");
@@ -302,7 +302,7 @@ public class Principal {
 
 	}
 	
-	private static void menuCadastroFornecimento() {
+	private void menuCadastroFornecimento() {
 		System.out.println("Escolha um fornecedor:");
 		Fornecedor forn = escolher(Fornecedor.class, "Fornecedor inválido");
 		if(forn == null)
@@ -321,7 +321,7 @@ public class Principal {
 		forn.comprar(prod, quantidade);	
 	}
 
-	private static void menuCadastroForn() {
+	private void menuCadastroForn() {
 		Fornecedor forn;
 		String nome, cnpj;
 
@@ -334,7 +334,7 @@ public class Principal {
 		Supermercado.getFornecedores().add(forn);
 	}
 
-	private static void menuCadastroClie() {
+	private void menuCadastroClie() {
 		Cliente clie = new Cliente();
 		String codigo, cpf;
 		System.out.print("Código (5 dígitos): ");
