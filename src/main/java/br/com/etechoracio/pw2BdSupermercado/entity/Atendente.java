@@ -12,10 +12,10 @@ import lombok.Setter;
 @Table(name = "Atendente")
 public class Atendente implements IListavel {
 	@Id
-	@Column(name = "cpf_func")
+	@Column(name = "cpf_func", columnDefinition = "char(11)")
 	private String cpf;
 	
-	@Column(name = "salr_func")
+	@Column(name = "salr_func", columnDefinition = "numeric(7,2)")
 	private double slr;
 	
 	@Column(name = "nome_aten")
