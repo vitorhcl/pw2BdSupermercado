@@ -13,7 +13,7 @@ import lombok.*;
 public class FormPag implements IListavel {
 	@Id
 	@Enumerated(value = EnumType.ORDINAL)
-	@Column(name = "cod_pag")
+	@Column(name = "cod_pag", columnDefinition = "numeric(1)")
 	private FormPagEnum codigo;
 
 	@Column(name = "nome_pag")
