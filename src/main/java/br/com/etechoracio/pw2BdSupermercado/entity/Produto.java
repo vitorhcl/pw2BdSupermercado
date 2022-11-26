@@ -14,20 +14,20 @@ import lombok.*;
 @Table(name = "Produto")
 public class Produto implements IListavel {
 	@Id
-	@Column(name = "cod_bar")
+	@Column(name = "cod_bar", columnDefinition = "char(11)")
 	private String codBar;
 	
 	@Column(name = "nome_prod")
 	private String nome;
 	
-	@Column(name = "preco_venda")
+	@Column(name = "preco_venda", columnDefinition = "numeric(10,2)")
 	private double precoVenda;
 	
-	@Column(name = "preco_custo")
+	@Column(name = "preco_custo", columnDefinition = "numeric(10,3)")
 	private double precoCusto;
 	
 	@Builder.Default
-	@Column(name = "estoque")
+	@Column(name = "estoque", columnDefinition = "numeric(5)")
 	private int estoque = 0;
 	
 	@Column(name = "categoria")
