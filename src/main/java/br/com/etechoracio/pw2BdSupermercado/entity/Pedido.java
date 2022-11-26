@@ -29,7 +29,7 @@ public class Pedido implements IListavel {
 	private Atendente atendente;
 
 	@OneToOne
-	@JoinColumn(name = "num_nf")
+	@JoinColumn(name = "num_nf", columnDefinition = "numeric(4)")
 	private Nf nf;
 	
 	private boolean atendido = false;

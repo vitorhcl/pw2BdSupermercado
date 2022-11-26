@@ -18,28 +18,22 @@ public class Nf implements IListavel {
 	@Column(name = "num_nf", columnDefinition = "numeric(4)")
 	public int numero;
 	
-	@Column(name = "total_nf")
+	@Column(name = "total_nf", columnDefinition = "numeric(10,2)")
 	public double total;
 	
-	@Column(name = "qtd_total")
+	@Column(name = "qtd_total", columnDefinition = "numeric(3)")
 	private int qtdTotal;
 
-	@Column(name = "cod_bar")
+	@Column(name = "cod_bar", columnDefinition = "char(13)")
 	private String codBar;
 	
 	@OneToOne
-	@JoinColumn(name = "num_pedido")
+	@JoinColumn(name = "num_pedido", columnDefinition = "numeric(6)")
 	private Pedido pedido;
 	
 	@Builder.Default
 	@Column(name = "data_emi")
 	private LocalDateTime dataEmi = LocalDateTime.now();
-
-	public void setNum(String num) {
-		if (num.length() != 4)
-			throw new IllegalArgumentException();
-		this.num = num;
-	}
 
 	public void setCodBar(String codBar) {
 		if (codBar.length() != 13)
@@ -50,7 +44,7 @@ public class Nf implements IListavel {
 	public void listar() {
 		Formatador f = new Formatador();
 
-		System.out.println("Número: " + this.getNum());
+		System.out.println("Número: " + this.getNumero());
 		System.out.println("Número do pedido: " + this.getPedido().getNumero());
 		System.out.println("Código de barras: " + f.codBar(this.getCodBar()));
 		System.out.println("Total de itens: " + this.getQtdTotal());
