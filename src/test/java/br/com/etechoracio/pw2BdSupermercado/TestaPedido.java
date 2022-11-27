@@ -2,7 +2,6 @@ package br.com.etechoracio.pw2BdSupermercado;
 
 import java.util.Set;
 
-import br.com.etechoracio.pw2BdSupermercado.Supermercado;
 import br.com.etechoracio.pw2BdSupermercado.entity.*;
 import br.com.etechoracio.pw2BdSupermercado.enums.FormPagEnum;
 
@@ -22,8 +21,6 @@ public class TestaPedido {
 		Nf nf = Nf.builder().codBar("7899586528937").numero(2535).build();
 
 		Pedido pedido = Pedido.builder().itens(Set.of(item1, item2)).numero("000001").cliente(cliente).formPag(formpag).nf(nf).build();
-		Supermercado.getPedidos().add(pedido);
-		Supermercado.getNfs().add(nf);
 		return pedido;
 	}
 

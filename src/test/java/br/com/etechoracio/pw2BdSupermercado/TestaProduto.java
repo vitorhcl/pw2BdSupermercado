@@ -9,7 +9,6 @@ public class TestaProduto {
 		Produto prod1 = Produto.builder().nome("Arroz").codBar("7898357410015").categoria("Grãos").precoCusto(5).precoVenda(8).build();
 
 		forn.comprar(prod1, 320);
-		Supermercado.getProdutos().add(prod1);
 		return prod1;
 	}
 
@@ -17,7 +16,6 @@ public class TestaProduto {
 		Produto prod2 = Produto.builder().nome("Feijão").codBar("7897652320359").categoria("Grãos").precoCusto(15).precoVenda(20).build();
 
 		forn.comprar(prod2, 370);
-		Supermercado.getProdutos().add(prod2);
 		return prod2;
 	}
 
