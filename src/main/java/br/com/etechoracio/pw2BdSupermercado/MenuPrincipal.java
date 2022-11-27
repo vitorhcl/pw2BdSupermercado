@@ -198,7 +198,7 @@ public class MenuPrincipal {
 		if (formPag == null)
 			return;
 
-		ped.cadastrar(numero, clie, formPag, nf);
+		ped = Pedido.builder().numero(numero).cliente(clie).formPag(formPag).nf(nf).build();
 		Supermercado.getPedidos().add(ped);
 	}
 

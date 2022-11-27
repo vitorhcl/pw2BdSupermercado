@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,67 +50,10 @@ public class Pedido implements IListavel {
 		this.numero = numero;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public FormPag getFormPag() {
-		return formPag;
-	}
-
-	public void setFormPag(FormPag formPag) {
-		this.formPag = formPag;
-	}
-
-	public Atendente getAtendente() {
-		return atendente;
-	}
-
-	public void setAtendente(Atendente atendente) {
-		this.atendente = atendente;
-	}
-
 	public void atendido() {
 		if (this.atendido)
 			System.out.println("Este pedido já foi atendido!");
 		this.atendido = true;
-	}
-
-	public List<ItemPed> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemPed> itens) {
-		this.itens = itens;
-	}
-
-	public Nf getNf() {
-		return this.nf;
-	}
-
-	public void setNf(Nf nf) {
-		this.nf = nf;
-	}
-
-	public void cadastrar(String numero, Cliente cliente, FormPag formPag, Nf nf) {
-		this.setNumero(numero);
-		this.cliente = cliente;
-		this.formPag = formPag;
-
-		nf.setPedido(this);
-		int qtdTotal = 0;
-		double vlrTotal = 0;
-		for (ItemPed item : this.itens) {
-			qtdTotal += item.getQtd();
-			vlrTotal += item.getProduto().getPrecoVenda() * item.getQtd();
-		}
-		nf.setQtdTotal(qtdTotal);
-		nf.setTotal(vlrTotal);
-		this.nf = nf;
 	}
 
 	public void listar() {
@@ -120,22 +64,28 @@ public class Pedido implements IListavel {
 		System.out.println("Foi atendido: " + (this.isAtendido() ? "sim" : "não"));
 	}
 
-	public void cadastrar(String numero, Cliente cliente, FormPag formPag, Nf nf, List<ItemPed> itens) {
-		this.setNumero(numero);
-		this.cliente = cliente;
-		this.formPag = formPag;
+	@Builder
+	public static Pedido de(String numero, Cliente cliente, FormPag formPag, Nf nf, Set<ItemPed> itens) {
+		Pedido pedido = new Pedido();
+		pedido.setNumero(numero);
+		pedido.cliente = cliente;
+		pedido.formPag = formPag;
 
-		itens.forEach(itemPed -> itemPed.setPedido(this));
-		this.itens = itens;
+		itens.forEach(itemPed -> itemPed.setPedido(pedido));
+		pedido.itens = itens;
 
-		nf.setPedido(this);
+		nf.setPedido(pedido);
 		int qtdTotal = 0;
-		for (ItemPed item : itens) {
+		double vlrTotal = 0;
+		for (ItemPed item : pedido.itens) {
 			qtdTotal += item.getQtd();
+			vlrTotal += item.getProduto().getPrecoVenda() * item.getQtd();
 		}
 		nf.setQtdTotal(qtdTotal);
+		nf.setTotal(vlrTotal);
 
-		this.nf = nf;
+		pedido.nf = nf;
+		return pedido;
 	}
 
 	private void adicionarItem(ItemPed item) {
@@ -156,9 +106,5 @@ public class Pedido implements IListavel {
 	public void adicionarItens(ItemPed... itens) {
 		for (ItemPed item : itens)
 			this.adicionarItem(item);
-	}
-
-	public boolean isAtendido() {
-		return atendido;
 	}
 }
