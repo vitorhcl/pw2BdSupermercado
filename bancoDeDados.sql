@@ -146,7 +146,7 @@ select cpf_func, upper(nome_aten) as Nome, salr_func, salr_func * 1.1 as "Acresc
 select * from Produto where categoria in ('Grãos','Pães','Doces') and preco_venda < 5 order by preco_venda DESC;
 
 --Relatório de quantos clientes tem o cpf que termine com 8 ou 0.
-select count(cod_clie) as "Qtd Clientes" from Cliente where cpf like '%8' or cpf like '%0';
+select count(cod_clie) as "Qtd Clientes" from Cliente where cpf_clie like '%8' or cpf_clie like '%0';
 
 --Relatório para calcular a média dos salarios de valeria e de roberto. 
 --Exibir como Média Salarial.
@@ -166,13 +166,13 @@ select f.nome_forn as Fornecedor, p.nome_prod as 'Nome Produto' from Forn_prod a
 select count(num_pedido) as 'Numero Pedidos', a.nome_aten from Pedido as p inner join Atendente as a on p.cpf_func = a.cpf_func group by a.nome_aten
 
 --Relatório de todos os pedidos feitos por clientes com cpf que terminam com 0 ou 8.
-select c.cod_clie, c.cpf_clie, num_pedido as "Núm. Pedidos" from Cliente as c left join Pedido as p on p.cod_clie = c.cod_clie where c.cpf_clie like '%8' or c.cpf like '%0';
+select c.cod_clie, c.cpf_clie, num_pedido as "Núm. Pedidos" from Cliente as c left join Pedido as p on p.cod_clie = c.cod_clie where c.cpf_clie like '%8' or c.cpf_clie like '%0';
 
 --Relatório de produtos que foram vendidos mais de uma vez: seus nomes e seus pedidos
 select pp.num_pedido, p.nome_prod from Ped_prod as pp right join Produto as p on p.cod_bar = pp.cod_bar where (select count(pr.nome_prod) from Produto as pr) > 1;
 
 --Relatório de pedidos que foram pagos no pix
-select fp.nome_pag, p.num_pedido from Pedido as p full join Form_pag as fp on p.cod_pag = fp.cod_pag where p.cod_pag = 5;
+select fp.nome_pag, p.num_pedido from Pedido as p full join Form_pag as fp on p.cod_pag = fp.cod_pag where p.cod_pag = 4;
 
 --Relatório do funcionário que tem o maior salário e seus pedidos
 select a.nome_aten, p.num_pedido, a.salr_func from Pedido as p inner join Atendente as a on a.cpf_func = p.cpf_func where a.salr_func = (select max(a.salr_func) from Atendente as a);
