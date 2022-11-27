@@ -37,9 +37,4 @@ public class Atendente implements IListavel {
 		this.setCpf(cpf);
 		this.slr = slr;
 	}
-
-	public void atenderPedido(Pedido pedido) {
-		pedido.setAtendente(this);
-		pedido.atendido();
-	}
 }

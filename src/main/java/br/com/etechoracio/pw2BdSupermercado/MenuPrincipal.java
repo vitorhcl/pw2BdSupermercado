@@ -75,15 +75,12 @@ public class MenuPrincipal {
 
 	private void menuPrincipal() {
 		int escolha;
-		escolha = menu(true, "O que deseja fazer?", "Cadastrar", "Atender pedido", "Listar");
+		escolha = menu(true, "O que deseja fazer?", "Cadastrar", "Listar");
 		switch (escolha) {
 		case 1:
 			menuCadastro();
 			break;
 		case 2:
-			menuAtenderPedido();
-			break;
-		case 3:
 			menuListar();
 			break;
 		case 0:
@@ -212,23 +209,14 @@ public class MenuPrincipal {
 		return (T) objeto;
 	}
 
-	private void menuAtenderPedido() {
+	private void menuCadastroPedido() {
+		System.out.println("Escolha o cliente:");
+		Cliente clie = escolher(Cliente.class, "Cliente inválido", "Nenhum cliente cadastrado");
+
 		System.out.println("Escolha o atendente:");
 		Atendente atendente = escolher(Atendente.class, "Atendente inválido!", "Nenhum atendente cadastrado");
 		if (atendente == null)
 			return;
-
-		System.out.println("Escolha o pedido:");
-		Pedido pedido = escolher(Pedido.class, "Pedido inválido!", "Nenhum pedido cadastrado");
-		if (pedido == null)
-			return;
-
-		atendente.atenderPedido(pedido);
-	}
-
-	private void menuCadastroPedido() {
-		System.out.println("Escolha o cliente:");
-		Cliente clie = escolher(Cliente.class, "Cliente inválido", "Nenhum cliente cadastrado");
 
 		Pedido ped = new Pedido();
 		boolean existeProds = menuAdicionarItens(ped);
@@ -251,7 +239,10 @@ public class MenuPrincipal {
 		if (formPag == null)
 			return;
 
-		ped = Pedido.builder().numero(numero).cliente(clie).formPag(formPag).nf(nf).build();
+		ped.setNumero(numero);
+		ped.setCliente(clie);
+		ped.setFormPag(formPag);
+		ped.setNf(nf);
 		pedidoRepository.save(ped);
 	}
 
@@ -269,6 +260,7 @@ public class MenuPrincipal {
 
 		System.out.println("Código de barras EAN-13 (13 dígitos): ");
 		codBar = ent.nextLine();
+		System.out.println(codBar);
 
 		System.out.println("Data de emissão, a para agora (dd/MM/yyyy HH:mm:ss): ");
 		strDataEmi = ent.nextLine();

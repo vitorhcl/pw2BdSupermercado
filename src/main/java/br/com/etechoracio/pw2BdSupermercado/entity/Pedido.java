@@ -33,9 +33,7 @@ public class Pedido implements IListavel {
 	@JoinColumn(name = "num_nf", columnDefinition = "numeric(4)")
 	private Nf nf;
 	
-	@Transient
-	private boolean atendido = false;
-	
+	@Builder.Default
 	@OneToMany(mappedBy = "itemPedPk.pedido",
 			   fetch = FetchType.EAGER,
 			   cascade = CascadeType.ALL)
@@ -47,26 +45,23 @@ public class Pedido implements IListavel {
 		this.numero = numero;
 	}
 
-	public void atendido() {
-		if (this.atendido)
-			System.out.println("Este pedido já foi atendido!");
-		this.atendido = true;
-	}
-
 	public void listar() {
 		System.out.println("Número: " + this.getNumero());
 		System.out.println("Forma de pagamento: " + this.getFormPag().getCodigo().toString());
 		this.getCliente().listar();
 		this.getItens().forEach(itemPed -> itemPed.listar());
-		System.out.println("Foi atendido: " + (this.isAtendido() ? "sim" : "não"));
+		
+		System.out.printf("Atendido por: ");
+		atendente.listar();
 	}
 
 	@Builder
-	public static Pedido de(String numero, Cliente cliente, FormPag formPag, Nf nf, Set<ItemPed> itens) {
+	public static Pedido de(String numero, Cliente cliente, FormPag formPag, Nf nf, Atendente atendente, Set<ItemPed> itens) {
 		Pedido pedido = new Pedido();
 		pedido.setNumero(numero);
 		pedido.cliente = cliente;
 		pedido.formPag = formPag;
+		pedido.atendente = atendente;
 
 		itens.forEach(itemPed -> itemPed.setPedido(pedido));
 		pedido.itens = itens;
