@@ -2,9 +2,9 @@
 
 create database supermercado;
 
-use supermercado;
+go
 
-use master; drop database supermercado;
+use supermercado;
 
 create table Cliente (
 cod_clie char (5) primary key,
@@ -119,8 +119,12 @@ insert into Ped_prod values (456, '1574896325874', '987561');
 insert into Ped_prod values (325, '7896541230158', '789654');
 insert into Ped_prod values (987, '7896541230158', '190768');
 
+go
+
 alter table Pedido add num_nf numeric(4) references nf;
 alter table nf add num_pedido numeric(6) references Pedido;
+
+go
 
 update Pedido set num_nf = '5698' where num_pedido = '569874';
 update Pedido set num_nf = '4589' where num_pedido = '458785';
