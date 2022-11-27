@@ -1,6 +1,6 @@
 package br.com.etechoracio.pw2BdSupermercado.entity;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -37,12 +37,9 @@ public class Pedido implements IListavel {
 	private boolean atendido = false;
 	
 	@OneToMany(mappedBy = "itemPedPk.pedido",
+			   fetch = FetchType.EAGER,
 			   cascade = CascadeType.ALL)
-	private List<ItemPed> itens = new ArrayList<ItemPed>();
-
-	public String getNumero() {
-		return numero;
-	}
+	private Set<ItemPed> itens = new HashSet<ItemPed>();
 
 	public void setNumero(String numero) {
 		if (numero.length() != 6)

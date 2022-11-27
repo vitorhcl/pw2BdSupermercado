@@ -1,14 +1,51 @@
 package br.com.etechoracio.pw2BdSupermercado;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import br.com.etechoracio.pw2BdSupermercado.entity.*;
-import br.com.etechoracio.pw2BdSupermercado.enums.*;
-import br.com.etechoracio.pw2BdSupermercado.testes.*;
+import br.com.etechoracio.pw2BdSupermercado.repository.AtendenteRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.ClienteRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.FormPagRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.FornecedorRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.ItemPedRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.NfRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.PedidoRepository;
+import br.com.etechoracio.pw2BdSupermercado.repository.ProdutoRepository;
 
 public class MenuPrincipal {
 	private Scanner ent = new Scanner(System.in);
+	
+
+	public MenuPrincipal(AtendenteRepository atendenteRepository, ClienteRepository clienteRepository,
+			FormPagRepository formPagRepository, FornecedorRepository fornecedorRepository,
+			ItemPedRepository itemPedRepository, NfRepository nfRepository, PedidoRepository pedidoRepository,
+			ProdutoRepository produtoRepository) {
+		this.atendenteRepository = atendenteRepository;
+		this.clienteRepository = clienteRepository;
+		this.formPagRepository = formPagRepository;
+		this.fornecedorRepository = fornecedorRepository;
+		this.itemPedRepository = itemPedRepository;
+		this.nfRepository = nfRepository;
+		this.pedidoRepository = pedidoRepository;
+		this.produtoRepository = produtoRepository;
+	}
+
+	private AtendenteRepository atendenteRepository;
+	private ClienteRepository clienteRepository;
+	private FormPagRepository formPagRepository;
+	private FornecedorRepository fornecedorRepository;
+	private ItemPedRepository itemPedRepository;
+	private NfRepository nfRepository;
+	private PedidoRepository pedidoRepository;
+	private ProdutoRepository produtoRepository;
+	
+	public MenuPrincipal(AtendenteRepository a) {
+		
+	}
 
 	private int menu(boolean menuPrincipal, String titulo, String... msgs) {
 		int escolha = 0;
@@ -33,19 +70,7 @@ public class MenuPrincipal {
 	}
 
 	public void main() {
-		preencherSupermercado();
-
 		menuPrincipal();
-	}
-
-	private void preencherSupermercado() {
-		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.CREDITO).nome("Crédito").build());
-		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.DEBITO).nome("Débito").build());
-		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.PIX).nome("PIX").build());
-		Supermercado.getFormasPag().add(FormPag.builder().codigo(FormPagEnum.VALEREFEICAO).nome("Vale-Refeição").build());
-
-		TestaPedido.criaPedido();
-		TestaAtendente.criaAtendente();
 	}
 
 	private void menuPrincipal() {
@@ -72,7 +97,7 @@ public class MenuPrincipal {
 
 	private void menuCadastro() {
 		int escolha;
-		escolha = menu(false, "O que deseja cadastrar?", "Pedido", "Cliente", "Fornecedor", "Fornecimento", "Produto", "Atendente");
+		escolha = menu(false, "O que deseja cadastrar?", "Pedido", "Cliente", "Fornecedor", "Produto", "Atendente");
 		try {
 			switch (escolha) {
 			case 1:
@@ -90,12 +115,9 @@ public class MenuPrincipal {
 				menuCadastroForn();
 				break;
 			case 4:
-				menuCadastroFornecimento();
-				break;
-			case 5:
 				menuCadastroProd();
 				break;
-			case 6:
+			case 5:
 				menuCadastroAtendente();
 				break;
 			}
@@ -106,6 +128,22 @@ public class MenuPrincipal {
 		if (escolha != 0)
 			menuCadastro();
 	}
+	
+	private <T, ID> boolean listar(JpaRepository<T, ID> repository, String msgErro) {
+		List<T> lista = repository.findAll();
+		int i = 0;
+		if (lista.size() == 0) {
+			System.out.println(msgErro);
+			return false;
+		}
+		for (Object item : lista) {
+			System.out.printf("(%d): ", i + 1);
+			((IListavel) item).listar();
+			System.out.println();
+			i++;
+		}
+		return true;
+	}
 
 	private void menuListar() {
 		int escolha;
@@ -113,60 +151,75 @@ public class MenuPrincipal {
 				"Formas de pagamento", "Notas fiscais");
 		switch (escolha) {
 		case 1:
-			Supermercado.listar(Produto.class);
+			listar(produtoRepository, "Nenhum produto foi cadastrado");
 			break;
 		case 2:
-			Supermercado.listar(Atendente.class);
+			listar(atendenteRepository, "Nenhum atendente foi cadastrado");
 			break;
 		case 3:
-			Supermercado.listar(Fornecedor.class);
+			listar(fornecedorRepository, "Nenhum fornecedor foi cadastrado");
 			break;
 		case 4:
-			Supermercado.listar(Pedido.class);
+			listar(pedidoRepository, "Nenhum pedido foi cadastrado");
 			break;
 		case 5:
-			Supermercado.listar(Cliente.class);
+			listar(clienteRepository, "Nenhum cliente foi cadastrado");
 			break;
 		case 6:
-			Supermercado.listar(FormPag.class);
+			listar(formPagRepository, "Nenhuma forma de pagamento foi cadastrada");
 			break;
 		case 7:
-			Supermercado.listar(Nf.class);
+			listar(nfRepository, "Nenhuma nota fiscal foi cadastrada");
 			break;
 		}
 		if (escolha != 0)
 			menuListar();
 	}
 
-	private <T> int lerIndiceLista(Class<T> T, String msgErro) {
-		boolean existe = Supermercado.listar(T);
+	private <T> int lerIndiceLista(Class<T> T, String msgInvalido, String msgVazio) {
+		boolean existe = listar(getRepository(T), msgInvalido);
 		if (!existe)
 			return -1;
 		int num = ent.nextInt();
-		if (!(0 <= num && num <= Supermercado.getLista(T).size())) {
-			System.out.println(msgErro);
-			return lerIndiceLista(T, msgErro);
+		if (!(0 <= num && num <= getRepository(T).findAll().size())) {
+			System.out.println(msgInvalido);
+			return lerIndiceLista(T, msgInvalido, msgVazio);
 		}
 		return num;
 	}
+	
+	private <T, ID> JpaRepository<T, ID> getRepository(Class<?> T) {
+		JpaRepository<T, ID> repository = null;
+		if (T == Produto.class)
+			return (JpaRepository<T, ID>) produtoRepository;
+		else if (T == Fornecedor.class)
+			return (JpaRepository<T, ID>) fornecedorRepository;
+		else if (T == Pedido.class)
+			return (JpaRepository<T, ID>) pedidoRepository;
+		else if (T == Atendente.class)
+			return (JpaRepository<T, ID>) atendenteRepository;
+		else if (T == Cliente.class)
+			return (JpaRepository<T, ID>) clienteRepository;
+		return (JpaRepository<T, ID>) formPagRepository;
+	}
 
-	private <T> T escolher(Class<T> T, String msgErro) {
-		int num = lerIndiceLista(T, msgErro);
+	private <T> T escolher(Class<T> T, String msgInvalido, String msgVazio) {
+		int num = lerIndiceLista(T, msgInvalido, msgVazio);
 		if (num == -1 || num == 0)
 			return null;
 
-		T objeto = (T) Supermercado.getLista(T).get(num - 1);
+		T objeto = (T) getRepository(T).findAll().get(num - 1);
 		return (T) objeto;
 	}
 
 	private void menuAtenderPedido() {
 		System.out.println("Escolha o atendente:");
-		Atendente atendente = escolher(Atendente.class, "Atendente inválido!");
+		Atendente atendente = escolher(Atendente.class, "Atendente inválido!", "Nenhum atendente cadastrado");
 		if (atendente == null)
 			return;
 
 		System.out.println("Escolha o pedido:");
-		Pedido pedido = escolher(Pedido.class, "Pedido inválido!");
+		Pedido pedido = escolher(Pedido.class, "Pedido inválido!", "Nenhum pedido cadastrado");
 		if (pedido == null)
 			return;
 
@@ -175,7 +228,7 @@ public class MenuPrincipal {
 
 	private void menuCadastroPedido() {
 		System.out.println("Escolha o cliente:");
-		Cliente clie = escolher(Cliente.class, "Cliente inválido");
+		Cliente clie = escolher(Cliente.class, "Cliente inválido", "Nenhum cliente cadastrado");
 
 		Pedido ped = new Pedido();
 		boolean existeProds = menuAdicionarItens(ped);
@@ -194,12 +247,12 @@ public class MenuPrincipal {
 		Nf nf = menuEmitirNf();
 
 		System.out.println("Forma de pagamento:");
-		FormPag formPag = escolher(FormPag.class, "Forma de pagamento inválida!");
+		FormPag formPag = escolher(FormPag.class, "Forma de pagamento inválida!", "Nenhuma forma de pagamento cadastrada");
 		if (formPag == null)
 			return;
 
 		ped = Pedido.builder().numero(numero).cliente(clie).formPag(formPag).nf(nf).build();
-		Supermercado.getPedidos().add(ped);
+		pedidoRepository.save(ped);
 	}
 
 	private Nf menuEmitirNf() {
@@ -227,20 +280,20 @@ public class MenuPrincipal {
 			nf = Nf.builder().codBar(codBar).numero(numero).dataEmi(dataEmi).build();
 		}
 
-		Supermercado.getNfs().add(nf);
+		nfRepository.save(nf);
 		return nf;
 	}
 
 	private boolean menuAdicionarItens(Pedido ped) {
 		System.out.println("Adicione um produto ao pedido ou digite 0 para finalizar a compra:");
-		int num = lerIndiceLista(Produto.class, "Produto inválido!");
+		int num = lerIndiceLista(Produto.class, "Produto inválido!", "Nenhum produto cadastrado");
 
 		if (num != 0) {
 			ItemPed itemPed = new ItemPed();
 			System.out.println("Quantidade:");
 			int quantidade = ent.nextInt();
 
-			itemPed.cadastrar(Supermercado.getProdutos().get(num - 1), quantidade);
+			itemPed.cadastrar(produtoRepository.findAll().get(num - 1), quantidade);
 			ped.adicionarItens(itemPed);
 			menuAdicionarItens(ped);
 		}
@@ -261,13 +314,13 @@ public class MenuPrincipal {
 		slr = ent.nextDouble();
 
 		atendente.cadastrar(cpf, nome, slr);
-		Supermercado.getAtendentes().add(atendente);
+		atendenteRepository.save(atendente);
 	}
 
 	private void menuCadastroProd() {
 		System.out.println("Escolha um fornecedor:");
 
-		Fornecedor forn = escolher(Fornecedor.class, "Fornecedor inválido!");
+		Fornecedor forn = escolher(Fornecedor.class, "Fornecedor inválido!", "Nenhum fornecedor cadastrado");
 		if(forn == null)
 			return;
 		
@@ -298,27 +351,7 @@ public class MenuPrincipal {
 		prod = Produto.builder().nome(nome).codBar(codBar).estoque(quantidade).precoCusto(precoCusto).precoVenda(precoVenda).categoria(categoria).build();
 		forn.comprar(prod, quantidade);
 		
-		Supermercado.getProdutos().add(prod);
-
-	}
-	
-	private void menuCadastroFornecimento() {
-		System.out.println("Escolha um fornecedor:");
-		Fornecedor forn = escolher(Fornecedor.class, "Fornecedor inválido");
-		if(forn == null)
-			return;
-		
-		System.out.println("Escolha um produto:");
-		Produto prod = escolher(Produto.class, "Produto inválido!");
-		if(prod == null)
-			return;
-		
-		int quantidade;
-		
-		System.out.print("Quantidade: ");
-		quantidade = ent.nextInt();
-		
-		forn.comprar(prod, quantidade);	
+		produtoRepository.save(prod);
 	}
 
 	private void menuCadastroForn() {
@@ -331,7 +364,7 @@ public class MenuPrincipal {
 		System.out.print("CNPJ (só digitos): ");
 		cnpj = ent.next();
 		forn = Fornecedor.builder().nome(nome).cnpj(cnpj).build();
-		Supermercado.getFornecedores().add(forn);
+		fornecedorRepository.save(forn);
 	}
 
 	private void menuCadastroClie() {
@@ -342,7 +375,7 @@ public class MenuPrincipal {
 		System.out.print("CPF (só digitos): ");
 		cpf = ent.next();
 		clie.cadastrar(codigo, cpf);
-		Supermercado.getClientes().add(clie);
+		clienteRepository.save(clie);
 	}
 
 }

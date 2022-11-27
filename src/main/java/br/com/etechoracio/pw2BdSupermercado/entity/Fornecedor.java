@@ -10,6 +10,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "Fornecedor")
 public class Fornecedor implements IListavel {
@@ -21,7 +23,7 @@ public class Fornecedor implements IListavel {
 	private String nome;
 	
 	@Builder.Default
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Forn_prod",
 			   joinColumns = @JoinColumn(name = "cnpj_forn", columnDefinition = "char(14)"),
 			   inverseJoinColumns = @JoinColumn(name = "cod_bar", columnDefinition = "char(13"))

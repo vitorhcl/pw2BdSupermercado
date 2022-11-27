@@ -4,12 +4,17 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.Formatador;
+import br.com.etechoracio.pw2BdSupermercado.enums.FormPagEnum;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "nf")

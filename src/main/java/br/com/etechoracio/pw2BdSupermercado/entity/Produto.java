@@ -1,6 +1,7 @@
 package br.com.etechoracio.pw2BdSupermercado.entity;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,6 +11,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "Produto")
 public class Produto implements IListavel {
@@ -34,16 +37,17 @@ public class Produto implements IListavel {
 	private String categoria;
 	
 	@Builder.Default
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Forn_prod",
 			  joinColumns = @JoinColumn(name = "cod_bar", columnDefinition = "char(13)"),
 			  inverseJoinColumns = @JoinColumn(name = "cnpj_forn", columnDefinition = "char(14)"))
-	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+	private Set<Fornecedor> fornecedores = new HashSet<Fornecedor>();
 	
 	@Builder.Default
 	@OneToMany(mappedBy = "itemPedPk.produto",
+			   fetch = FetchType.EAGER,
 			   cascade = CascadeType.ALL)
-	private List<ItemPed> itens = new ArrayList<ItemPed>();
+	private Set<ItemPed> itens = new HashSet<ItemPed>();
 
 	public void setCodBar(String codBar) {
 		if (codBar.length() != 13)
