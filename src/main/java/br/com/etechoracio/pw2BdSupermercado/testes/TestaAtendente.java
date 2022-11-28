@@ -4,8 +4,7 @@ import br.com.etechoracio.pw2BdSupermercado.entity.*;
 
 public class TestaAtendente {
 	public static Atendente criaAtendente() {
-		Atendente aten = new Atendente();
-		aten.cadastrar("13032350050", "Lúcia", 1800);
+		Atendente aten = Atendente.builder().cpf("13032350050").nome("Lúcia").slr(1800).build();
 		return aten;
 	}
 

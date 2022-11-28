@@ -3,11 +3,13 @@ package br.com.etechoracio.pw2BdSupermercado.entity;
 import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.Formatador;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "Cliente")
 public class Cliente implements IListavel {	
@@ -33,10 +35,5 @@ public class Cliente implements IListavel {
 	public void listar() {
 		Formatador f = new Formatador();
 		System.out.println(String.format("Cliente %s: %s", codigo, f.cpf(cpf)));
-	}
-
-	public void cadastrar(String codigo, String cpf) {
-		this.setCodigo(codigo);
-		this.setCpf(cpf);
 	}
 }

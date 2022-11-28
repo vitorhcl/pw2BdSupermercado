@@ -3,11 +3,13 @@ package br.com.etechoracio.pw2BdSupermercado.entity;
 import javax.persistence.*;
 
 import br.com.etechoracio.pw2BdSupermercado.Formatador;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "Atendente")
 public class Atendente implements IListavel {
@@ -30,11 +32,5 @@ public class Atendente implements IListavel {
 	public void listar() {
 		Formatador f = new Formatador();
 		System.out.println(String.format("%s (%s) ganha %s", this.nome, f.cpf(this.cpf), f.moeda(this.slr)));
-	}
-
-	public void cadastrar(String cpf, String nome, double slr) {
-		this.nome = nome;
-		this.setCpf(cpf);
-		this.slr = slr;
 	}
 }

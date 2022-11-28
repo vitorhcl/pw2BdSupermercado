@@ -263,7 +263,9 @@ public class MenuPrincipal {
 		System.out.println(codBar);
 
 		System.out.println("Data de emissão, a para agora (dd/MM/yyyy HH:mm:ss): ");
-		strDataEmi = ent.nextLine();
+		ent.useDelimiter("\n");
+		strDataEmi = ent.next();
+		System.out.println(strDataEmi);
 		
 		if (strDataEmi.equals("h")) {
 			nf = Nf.builder().codBar(codBar).numero(numero).build();
@@ -293,7 +295,7 @@ public class MenuPrincipal {
 	}
 
 	private void menuCadastroAtendente() {
-		Atendente atendente = new Atendente();
+		Atendente atendente;
 		String cpf, nome;
 		double slr;
 		System.out.print("Nome: ");
@@ -305,7 +307,7 @@ public class MenuPrincipal {
 		System.out.print("Salário: ");
 		slr = ent.nextDouble();
 
-		atendente.cadastrar(cpf, nome, slr);
+		atendente = Atendente.builder().cpf(cpf).nome(nome).slr(slr).build();
 		atendenteRepository.save(atendente);
 	}
 
@@ -360,13 +362,13 @@ public class MenuPrincipal {
 	}
 
 	private void menuCadastroClie() {
-		Cliente clie = new Cliente();
+		Cliente clie;
 		String codigo, cpf;
 		System.out.print("Código (5 dígitos): ");
 		codigo = ent.next();
 		System.out.print("CPF (só digitos): ");
 		cpf = ent.next();
-		clie.cadastrar(codigo, cpf);
+		clie = Cliente.builder().codigo(codigo).cpf(cpf).build();
 		clienteRepository.save(clie);
 	}
 

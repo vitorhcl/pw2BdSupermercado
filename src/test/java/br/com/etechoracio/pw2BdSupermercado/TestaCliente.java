@@ -4,8 +4,7 @@ import br.com.etechoracio.pw2BdSupermercado.entity.Cliente;
 
 public class TestaCliente {
 	public static Cliente criaCliente() {
-		Cliente cliente = new Cliente();
-		cliente.cadastrar("00001", "12345678909");
+		Cliente cliente = Cliente.builder().codigo("00001").cpf("12345678909").build();
 		return cliente;
 	}
 
