@@ -260,12 +260,10 @@ public class MenuPrincipal {
 
 		System.out.println("Código de barras EAN-13 (13 dígitos): ");
 		codBar = ent.nextLine();
-		System.out.println(codBar);
 
 		System.out.println("Data de emissão, a para agora (dd/MM/yyyy HH:mm:ss): ");
 		ent.useDelimiter("\n");
 		strDataEmi = ent.next();
-		System.out.println(strDataEmi);
 		
 		if (strDataEmi.equals("h")) {
 			nf = Nf.builder().codBar(codBar).numero(numero).build();
