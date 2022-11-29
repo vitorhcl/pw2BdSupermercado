@@ -264,6 +264,7 @@ public class MenuPrincipal {
 		System.out.println("Data de emissão, a para agora (dd/MM/yyyy HH:mm:ss): ");
 		ent.useDelimiter("\n");
 		strDataEmi = ent.next();
+		ent.useDelimiter(" ");
 		
 		if (strDataEmi.equals("h")) {
 			nf = Nf.builder().codBar(codBar).numero(numero).build();
