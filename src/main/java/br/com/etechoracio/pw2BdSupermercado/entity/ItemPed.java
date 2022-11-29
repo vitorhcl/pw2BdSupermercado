@@ -16,7 +16,7 @@ import lombok.Setter;
 	@AssociationOverride(name = "itemPedPk.pedido",
 		joinColumns = @JoinColumn(name = "num_pedido", columnDefinition = "numeric(4)")),
 })
-public class ItemPed {
+public class ItemPed implements IListavel {
 	@EmbeddedId
 	private ItemPedPk itemPedPk;
 
