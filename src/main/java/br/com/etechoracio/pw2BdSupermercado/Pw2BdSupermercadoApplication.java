@@ -50,11 +50,6 @@ public class Pw2BdSupermercadoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//produtoRepository.findAll();
-		//pedidoRepository.findAll();
-		//itemPedRepository.findAll();
-		
-		//itemPedRepository.findAll().forEach(itemPed -> itemPed.listar());
 		MenuPrincipal menuPrin = new MenuPrincipal(atendenteRepository, clienteRepository, formPagRepository, fornecedorRepository, itemPedRepository, nfRepository, pedidoRepository, produtoRepository);
 		menuPrin.main();
 	}
